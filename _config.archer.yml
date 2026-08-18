@@ -1,8 +1,8 @@
 # ========== Profile ========== #
 # avatar
-avatar: /avatar/Misaka.jpg
+avatar: https://avatars.githubusercontent.com/hbu2198784382?size=200
 # author name
-author: hbu2198784382
+author: In1tial1z3
 # signature
 signature: 记录学习与生活的点滴
 # SNS (you can custom the order)
@@ -62,14 +62,14 @@ profile_links:
 
 # ========== Site ========== #
 # title of the site (good for SEO)
-SEO_title: hbu2198784382 的博客
+SEO_title: In1tial1z3's Wikipedia
 # keywords for site (good for SEO)
 SEO_keywords:
   - hexo
   - 'hexo-theme'
   - 'hexo-blog'
 # main title shown in header image
-main_title: hbu2198784382 的博客.
+main_title: In1tial1z3's Wikipedia.
 # subtitle
 subtitle: 记录学习与生活的点滴
 # site haeder image
