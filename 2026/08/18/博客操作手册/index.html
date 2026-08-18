@@ -1,0 +1,856 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <!-- title -->
+<!-- keywords -->
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="author" content="In1tial1z3">
+    <meta name="renderer" content="webkit">
+    <meta name="copyright" content="In1tial1z3">
+        <meta name="keywords" content="hexo,hexo-theme,hexo-blog">
+    <meta name="description" content="In1tial1z3 的个人博客">
+    <meta name="description" content="本手册介绍如何在一台新电脑上重新搭建本博客环境，以及日常写文章、发布、自定义的完整方法。适用版本：Hexo 8.1.2 · archer 主题 · GitHub Pages   一、项目概览   项目 内容    博客地址 https:&#x2F;&#x2F;hbu2198784382.github.io&#x2F;   代码仓库 https:&#x2F;&#x2F;github.com&#x2F;hbu2198784382&#x2F;hbu2198784382.">
+<meta property="og:type" content="article">
+<meta property="og:title" content="博客操作手册">
+<meta property="og:url" content="https://hbu2198784382.github.io/2026/08/18/%E5%8D%9A%E5%AE%A2%E6%93%8D%E4%BD%9C%E6%89%8B%E5%86%8C/index.html">
+<meta property="og:site_name" content="In1tial1z3&#39;s Wikipedia">
+<meta property="og:description" content="本手册介绍如何在一台新电脑上重新搭建本博客环境，以及日常写文章、发布、自定义的完整方法。适用版本：Hexo 8.1.2 · archer 主题 · GitHub Pages   一、项目概览   项目 内容    博客地址 https:&#x2F;&#x2F;hbu2198784382.github.io&#x2F;   代码仓库 https:&#x2F;&#x2F;github.com&#x2F;hbu2198784382&#x2F;hbu2198784382.">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2026-08-18T03:06:02.000Z">
+<meta property="article:modified_time" content="2026-08-18T03:06:39.827Z">
+<meta property="article:author" content="In1tial1z3">
+<meta property="article:tag" content="Hexo">
+<meta property="article:tag" content="教程">
+<meta name="twitter:card" content="summary">
+    <meta http-equiv="Cache-control" content="no-cache">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <link rel="icon" href="/assets/favicon.ico">
+    <title>博客操作手册 · In1tial1z3&#39;s Wikipedia</title>
+    <!-- /*! loadCSS. [c]2017 Filament Group, Inc. MIT License */
+/* This file is meant as a standalone workflow for
+- testing support for link[rel=preload]
+- enabling async CSS loading in browsers that do not support rel=preload
+- applying rel preload css once loaded, whether supported or not.
+*/ -->
+<script>
+    (function (w) {
+        'use strict'
+        // rel=preload support test
+        if (!w.loadCSS) {
+            w.loadCSS = function () {}
+        }
+        // define on the loadCSS obj
+        var rp = (loadCSS.relpreload = {})
+        // rel=preload feature support test
+        // runs once and returns a function for compat purposes
+        rp.support = (function () {
+            var ret
+            try {
+                ret = w.document.createElement('link').relList.supports('preload')
+            } catch (e) {
+                ret = false
+            }
+            return function () {
+                return ret
+            }
+        })()
+
+        // if preload isn't supported, get an asynchronous load by using a non-matching media attribute
+        // then change that media back to its intended value on load
+        rp.bindMediaToggle = function (link) {
+            // remember existing media attr for ultimate state, or default to 'all'
+            var finalMedia = link.media || 'all'
+
+            function enableStylesheet() {
+                link.media = finalMedia
+            }
+
+            // bind load handlers to enable media
+            if (link.addEventListener) {
+                link.addEventListener('load', enableStylesheet)
+            } else if (link.attachEvent) {
+                link.attachEvent('onload', enableStylesheet)
+            }
+
+            // Set rel and non-applicable media type to start an async request
+            // note: timeout allows this to happen async to let rendering continue in IE
+            setTimeout(function () {
+                link.rel = 'stylesheet'
+                link.media = 'only x'
+            })
+            // also enable media after 3 seconds,
+            // which will catch very old browsers (android 2.x, old firefox) that don't support onload on link
+            setTimeout(enableStylesheet, 3000)
+        }
+
+        // loop through link elements in DOM
+        rp.poly = function () {
+            // double check this to prevent external calls from running
+            if (rp.support()) {
+                return
+            }
+            var links = w.document.getElementsByTagName('link')
+            for (var i = 0; i < links.length; i++) {
+                var link = links[i]
+                // qualify links to those with rel=preload and as=style attrs
+                if (
+                    link.rel === 'preload' &&
+                    link.getAttribute('as') === 'style' &&
+                    !link.getAttribute('data-loadcss')
+                ) {
+                    // prevent rerunning on link
+                    link.setAttribute('data-loadcss', true)
+                    // bind listeners to toggle media back
+                    rp.bindMediaToggle(link)
+                }
+            }
+        }
+
+        // if unsupported, run the polyfill
+        if (!rp.support()) {
+            // run once at least
+            rp.poly()
+
+            // rerun poly on an interval until onload
+            var run = w.setInterval(rp.poly, 500)
+            if (w.addEventListener) {
+                w.addEventListener('load', function () {
+                    rp.poly()
+                    w.clearInterval(run)
+                })
+            } else if (w.attachEvent) {
+                w.attachEvent('onload', function () {
+                    rp.poly()
+                    w.clearInterval(run)
+                })
+            }
+        }
+
+        // commonjs
+        if (typeof exports !== 'undefined') {
+            exports.loadCSS = loadCSS
+        } else {
+            w.loadCSS = loadCSS
+        }
+    })(typeof global !== 'undefined' ? global : this)
+</script>
+
+    <style type="text/css">
+    @font-face {
+        font-family: 'Oswald-Regular';
+        src: url("/font/Oswald-Regular.ttf");
+    }
+
+    body {
+        margin: 0;
+    }
+
+    header,
+    footer,
+    .footer-fixed-btn,
+    .sidebar,
+    .container,
+    .site-intro-meta,
+    .toc-wrapper {
+        display: none;
+    }
+
+    .site-intro {
+        position: relative;
+        z-index: 3;
+        width: 100%;
+        /* height: 50vh; */
+        overflow: hidden;
+    }
+
+    .site-intro-placeholder {
+        position: absolute;
+        z-index: -2;
+        top: 0;
+        left: 0;
+        width: calc(100% + 300px);
+        height: 100%;
+        background: repeating-linear-gradient(
+            -45deg,
+            #444 0,
+            #444 80px,
+            #333 80px,
+            #333 160px
+        );
+        background-position: center center;
+        transform: translate3d(-226px, 0, 0);
+        animation: gradient-move 2.5s ease-out 0s infinite;
+    }
+
+    @keyframes gradient-move {
+        0% {
+            transform: translate3d(-226px, 0, 0);
+        }
+        100% {
+            transform: translate3d(0, 0, 0);
+        }
+    }
+</style>
+
+    <link id="stylesheet-fancybox" rel="preload" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.36/dist/fancybox/fancybox.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <link id="stylesheet-base" rel="preload" href="/css/style.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <link id="stylesheet-mobile" rel="preload" href="/css/mobile.css" as="style" onload="this.onload=null;this.rel='stylesheet';this.media='screen and (max-width: 960px)'">
+    <link id="stylesheet-theme-dark" rel="preload" href="/css/dark.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <link rel="preload" href="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js" as="script">
+    <link rel="preload" href="/scripts/main.js" as="script">
+    <link rel="preload" href="/font/Oswald-Regular.ttf" as="font" crossorigin>
+    <link rel="preload" href="https://at.alicdn.com/t/font_327081_1dta1rlogw17zaor.woff" as="font" crossorigin>
+    <!-- algolia -->
+    <!-- 百度统计  -->
+    <!-- 谷歌统计  -->
+    <!-- Google tag (gtag.js) -->
+<meta name="generator" content="Hexo 8.1.2"><link rel="alternate" href="/atom.xml" title="In1tial1z3's Wikipedia" type="application/atom+xml">
+</head>
+
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
+    <script type="text/javascript">
+        if (typeof window.$ == undefined) {
+            console.warn('jquery load from jsdelivr failed, will load local script')
+            document.write('<script src="/lib/jquery.min.js" />')
+        }
+    </script>
+        <body class="post-body">
+        <!-- header -->
+        <header class="header header-mobile">
+    <!-- top read progress line -->
+    <div class="header-element">
+        <div class="read-progress"></div>
+    </div>
+    <!-- sidebar menu button -->
+    <div class="header-element">
+        <div class="header-sidebar-menu">
+            <div style="padding-left: 1px;">&#xe775;</div>
+        </div>
+    </div>
+    <!-- header actions -->
+    <div class="header-actions">
+        <!-- theme mode switch button -->
+        <span class="header-theme-btn header-element">
+            <i class="fas fa-adjust"></i>
+        </span>
+        <!-- back to home page text -->
+        <span class="home-link header-element">
+            <a href="/">In1tial1z3's Wikipedia.</a>
+        </span>
+    </div>
+    <!-- toggle banner -->
+    <div class="banner">
+        <div class="blog-title header-element">
+            <a href="/">In1tial1z3&#39;s Wikipedia.</a>
+        </div>
+        <div class="post-title header-element">
+            <a href="#" class="post-name">博客操作手册</a>
+        </div>
+    </div>
+</header>
+
+        <!-- fixed footer -->
+        <footer class="footer-fixed">
+    <!-- donate button -->
+
+    <!-- back to top button -->
+    <div class="footer-fixed-btn footer-fixed-btn--hidden back-top">
+        <div>&#xe639;</div>
+    </div>
+</footer>
+
+        <!-- wrapper -->
+        <div class="wrapper">
+            <div class="site-intro" style="    height:50vh;
+">
+    <!-- 主页  -->
+    <!-- 404页  -->
+    <div class="site-intro-placeholder"></div>
+    <div class="site-intro-img" style="background-image: url(/intro/1250.jpg)"></div>
+    <div class="site-intro-meta">
+        <!-- 标题  -->
+        <h1 class="intro-title">
+            <!-- 主页  -->
+                博客操作手册
+            <!-- 404 -->
+        </h1>
+        <!-- 副标题 -->
+        <p class="intro-subtitle">
+            <!-- 主页副标题  -->
+            <!-- 404 -->
+        </p>
+        <!-- 文章页 meta -->
+            <div class="post-intros">
+                <!-- 文章页标签  -->
+                    <div class="post-intro-tags" >
+        <a class="post-tag" href="javascript:void(0);" data-tags="Hexo">Hexo</a>
+        <a class="post-tag" href="javascript:void(0);" data-tags="教程">教程</a>
+</div>
+
+                <!-- 文章字数统计 -->
+                    <div class="post-intro-read">
+                        <span>字数统计: <span class="post-count word-count">2.2k</span>阅读时长: <span class="post-count reading-time">9 min</span></span>
+                    </div>
+                <div class="post-intro-meta">
+                    <!-- 撰写日期 -->
+                    <span class="iconfont-archer post-intro-calander">&#xe676;</span>
+                    <span class="post-intro-time">2026/08/18</span>
+                    <!-- busuanzi -->
+                        <span id="busuanzi_container_page_pv" class="busuanzi-pv">
+                            <span class="iconfont-archer post-intro-busuanzi">&#xe602;</span>
+                            <span id="busuanzi_value_page_pv"></span>
+                        </span>
+                    <!-- 文章分享 -->
+                    <span class="share-wrapper">
+                        <span class="iconfont-archer share-icon">&#xe71d;</span>
+                        <span class="share-text">Share</span>
+                        <ul class="share-list">
+                            <li class="iconfont-archer share-qr" data-type="qr">&#xe75b;
+                                <div class="share-qrcode"></div>
+                            </li>
+                            <li class="iconfont-archer" data-type="weibo">&#xe619;</li>
+                            <li class="iconfont-archer" data-type="qzone">&#xe62e;</li>
+                            <li class="iconfont-archer" data-type="twitter">&#xe634;</li>
+                            <li class="iconfont-archer" data-type="facebook">&#xe67a;</li>
+                        </ul>
+                    </span>
+                </div>
+            </div>
+    </div>
+</div>
+
+            <script>
+  // get user agent
+  function getBrowserVersions() {
+    var u = window.navigator.userAgent
+    return {
+      userAgent: u,
+      trident: u.indexOf('Trident') > -1, //IE内核
+      presto: u.indexOf('Presto') > -1, //opera内核
+      webKit: u.indexOf('AppleWebKit') > -1, //苹果、谷歌内核
+      gecko: u.indexOf('Gecko') > -1 && u.indexOf('KHTML') == -1, //火狐内核
+      mobile: !!u.match(/AppleWebKit.*Mobile.*/), //是否为移动终端
+      ios: !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/), //ios终端
+      android: u.indexOf('Android') > -1 || u.indexOf('Linux') > -1, //android终端或者uc浏览器
+      iPhone: u.indexOf('iPhone') > -1 || u.indexOf('Mac') > -1, //是否为iPhone或者安卓QQ浏览器
+      iPad: u.indexOf('iPad') > -1, //是否为iPad
+      webApp: u.indexOf('Safari') == -1, //是否为web应用程序，没有头部与底部
+      weixin: u.indexOf('MicroMessenger') == -1, //是否为微信浏览器
+      uc: u.indexOf('UCBrowser') > -1, //是否为android下的UC浏览器
+    }
+  }
+  var browser = {
+    versions: getBrowserVersions(),
+  }
+  console.log('userAgent: ' + browser.versions.userAgent)
+
+  // callback
+  function fontLoaded() {
+    console.log('font loaded')
+    if (document.getElementsByClassName('site-intro-meta')) {
+      document
+        .getElementsByClassName('intro-title')[0]
+        .classList.add('intro-fade-in')
+      document
+        .getElementsByClassName('intro-subtitle')[0]
+        .classList.add('intro-fade-in')
+      var postIntros = document.getElementsByClassName('post-intros')[0]
+      if (postIntros) {
+        postIntros.classList.add('post-fade-in')
+      }
+    }
+  }
+
+  // UC不支持跨域，所以直接显示
+  function asyncCb() {
+    if (browser.versions.uc) {
+      console.log('UCBrowser')
+      fontLoaded()
+    } else {
+      WebFont.load({
+        custom: {
+          families: ['Oswald-Regular'],
+        },
+        loading: function () {
+          // 所有字体开始加载
+          // console.log('font loading');
+        },
+        active: function () {
+          // 所有字体已渲染
+          fontLoaded()
+        },
+        inactive: function () {
+          // 字体预加载失败，无效字体或浏览器不支持加载
+          console.log('inactive: timeout')
+          fontLoaded()
+        },
+        timeout: 5000, // Set the timeout to two seconds
+      })
+    }
+  }
+
+  function asyncErr() {
+    console.warn('script load from CDN failed, will load local script')
+  }
+
+  // load webfont-loader async, and add callback function
+  function async(u, cb, err) {
+    var d = document,
+      t = 'script',
+      o = d.createElement(t),
+      s = d.getElementsByTagName(t)[0]
+    o.src = u
+    if (cb) {
+      o.addEventListener(
+        'load',
+        function (e) {
+          cb(null, e)
+        },
+        false
+      )
+    }
+    if (err) {
+      o.addEventListener(
+        'error',
+        function (e) {
+          err(null, e)
+        },
+        false
+      )
+    }
+    s.parentNode.insertBefore(o, s)
+  }
+
+  var asyncLoadWithFallBack = function (arr, success, reject) {
+    var currReject = function () {
+      reject()
+      arr.shift()
+      if (arr.length) async(arr[0], success, currReject)
+    }
+
+    async(arr[0], success, currReject)
+  }
+
+  asyncLoadWithFallBack(
+    [
+      'https://cdn.jsdelivr.net/npm/webfontloader@1.6.28/webfontloader.min.js',
+      'https://cdn.bootcss.com/webfont/1.6.28/webfontloader.js',
+      "/lib/webfontloader.min.js",
+    ],
+    asyncCb,
+    asyncErr
+  )
+</script>
+
+            <img class="loading" src="/assets/loading.svg" style="display: block; margin: 6rem auto 0 auto; width: 6rem; height: 6rem;" alt="loading">
+            <div class="container container-unloaded">
+                <main class="main post-page">
+    <article class="article-entry">
+        <blockquote>
+<p>本手册介绍如何在一台新电脑上重新搭建本博客环境，以及日常写文章、发布、自定义的完整方法。<br>适用版本：Hexo 8.1.2 · archer 主题 · GitHub Pages</p>
+</blockquote>
+<hr>
+<h2 id="一、项目概览"><a href="#一、项目概览" class="headerlink" title="一、项目概览"></a>一、项目概览</h2><table>
+<thead>
+<tr>
+<th>项目</th>
+<th>内容</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>博客地址</td>
+<td><a href="https://hbu2198784382.github.io/">https://hbu2198784382.github.io/</a></td>
+</tr>
+<tr>
+<td>代码仓库</td>
+<td><a target="_blank" rel="noopener" href="https://github.com/hbu2198784382/hbu2198784382.github.io.git">https://github.com/hbu2198784382/hbu2198784382.github.io.git</a></td>
+</tr>
+<tr>
+<td>技术栈</td>
+<td>Hexo 8（Node.js）+ archer 主题 + GitHub Pages</td>
+</tr>
+<tr>
+<td>默认分支 <code>main</code></td>
+<td><strong>部署后的网站</strong>（自动生成，不要手动修改）</td>
+</tr>
+<tr>
+<td>分支 <code>source</code></td>
+<td><strong>博客源码</strong>（配置文件、主题、文章，日常改动都在这里）</td>
+</tr>
+</tbody></table>
+<blockquote>
+<p>⚠️ <strong>重要</strong>：<code>main</code> 分支是 <code>hexo d</code> 自动生成的成品，<strong>不要</strong>直接在 <code>main</code> 上改代码。所有修改都改在本地，提交到 <code>source</code> 分支；网站内容用 <code>hexo g &amp;&amp; hexo d</code> 发布。</p>
+</blockquote>
+<hr>
+<h2 id="二、新环境配置（换电脑-重装系统）"><a href="#二、新环境配置（换电脑-重装系统）" class="headerlink" title="二、新环境配置（换电脑 &#x2F; 重装系统）"></a>二、新环境配置（换电脑 &#x2F; 重装系统）</h2><h3 id="1-安装基础软件"><a href="#1-安装基础软件" class="headerlink" title="1. 安装基础软件"></a>1. 安装基础软件</h3><table>
+<thead>
+<tr>
+<th>软件</th>
+<th>说明</th>
+<th>下载</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>Node.js</strong></td>
+<td>运行 Hexo 必需，建议 LTS 版（本机为 v24）</td>
+<td><a target="_blank" rel="noopener" href="https://nodejs.org/">https://nodejs.org</a></td>
+</tr>
+<tr>
+<td><strong>Git</strong></td>
+<td>版本管理</td>
+<td><a target="_blank" rel="noopener" href="https://git-scm.com/">https://git-scm.com</a></td>
+</tr>
+</tbody></table>
+<p>安装时全部保持默认即可。安装后打开终端（Windows 建议用 <strong>PowerShell</strong> 或 <strong>cmd</strong>，Git Bash 下 hexo 命令可能不在 PATH）验证：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">node -v    <span class="comment"># 应显示 v18 或更高，如 v24.16.0</span></span><br><span class="line">npm -v     <span class="comment"># 应显示 11.x 或更高</span></span><br><span class="line">git --version</span><br></pre></td></tr></table></figure>
+
+<h3 id="2-安装-hexo-命令行工具（全局）"><a href="#2-安装-hexo-命令行工具（全局）" class="headerlink" title="2. 安装 hexo 命令行工具（全局）"></a>2. 安装 hexo 命令行工具（全局）</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install -g hexo-cli</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>若在 Git Bash 里提示 <code>hexo: command not found</code>，用完整路径调用：<br><code>&quot;C:/Users/&lt;你的用户名&gt;/AppData/Roaming/npm/hexo.cmd&quot;</code>，或把该目录加进系统 PATH。</p>
+</blockquote>
+<h3 id="3-克隆源码（注意是-source-分支）"><a href="#3-克隆源码（注意是-source-分支）" class="headerlink" title="3. 克隆源码（注意是 source 分支）"></a>3. 克隆源码（注意是 <code>source</code> 分支）</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git <span class="built_in">clone</span> -b <span class="built_in">source</span> https://github.com/hbu2198784382/hbu2198784382.github.io.git</span><br><span class="line"><span class="built_in">cd</span> hbu2198784382.github.io</span><br></pre></td></tr></table></figure>
+
+<h3 id="4-安装依赖"><a href="#4-安装依赖" class="headerlink" title="4. 安装依赖"></a>4. 安装依赖</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install</span><br></pre></td></tr></table></figure>
+
+<h3 id="5-配置-Git-身份（推送提交信息用，只需第一次）"><a href="#5-配置-Git-身份（推送提交信息用，只需第一次）" class="headerlink" title="5. 配置 Git 身份（推送提交信息用，只需第一次）"></a>5. 配置 Git 身份（推送提交信息用，只需第一次）</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git config --global user.name  <span class="string">&quot;In1tial1z3&quot;</span></span><br><span class="line">git config --global user.email <span class="string">&quot;你的邮箱&quot;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="6-配置-GitHub-推送认证"><a href="#6-配置-GitHub-推送认证" class="headerlink" title="6. 配置 GitHub 推送认证"></a>6. 配置 GitHub 推送认证</h3><p>Windows 上 Git 自带 <strong>Git Credential Manager</strong>，第一次 <code>git push</code> 时会弹出浏览器&#x2F;GUI 窗口登录 GitHub，登录一次后自动记住。如果推送失败，也可以改用 SSH 方式：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git remote set-url origin git@github.com:hbu2198784382/hbu2198784382.github.io.git</span><br></pre></td></tr></table></figure>
+
+<h3 id="7-验证环境"><a href="#7-验证环境" class="headerlink" title="7. 验证环境"></a>7. 验证环境</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">hexo -v            <span class="comment"># 显示 hexo 8.1.2 即正常</span></span><br><span class="line">hexo server        <span class="comment"># 启动本地预览 → 浏览器打开 http://localhost:4000</span></span><br></pre></td></tr></table></figure>
+
+<p>看到博客首页就说明新环境配置完成。</p>
+<hr>
+<h2 id="三、目录结构"><a href="#三、目录结构" class="headerlink" title="三、目录结构"></a>三、目录结构</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">blog/                         # 博客根目录</span><br><span class="line">├── _config.yml               # Hexo 站点配置（标题、URL、部署等）</span><br><span class="line">├── _config.archer.yml        # archer 主题配置（头像、社交、背景图等）</span><br><span class="line">├── package.json              # Node 依赖清单</span><br><span class="line">├── source/                   # 内容源目录</span><br><span class="line">│   ├── _posts/               # ⭐ 所有文章都放这里（Markdown）</span><br><span class="line">│   ├── pdf/                  # PDF 文件目录（在线阅读用）</span><br><span class="line">│   ├── about/                # About 页面（创建后出现）</span><br><span class="line">│   └── 404.md                # 404 页面（创建后出现）</span><br><span class="line">├── scaffolds/                # 新建文章的模板</span><br><span class="line">├── themes/archer/            # 主题源码</span><br><span class="line">│   └── source/               # 主题静态资源（头像、背景图等）</span><br><span class="line">└── scripts/pdf.js            # 自定义 PDF 标签插件</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="四、日常写作"><a href="#四、日常写作" class="headerlink" title="四、日常写作"></a>四、日常写作</h2><h3 id="1-新建文章"><a href="#1-新建文章" class="headerlink" title="1. 新建文章"></a>1. 新建文章</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo new <span class="string">&quot;文章标题&quot;</span></span><br></pre></td></tr></table></figure>
+
+<p>会在 <code>source/_posts/文章标题.md</code> 生成模板，内容如下：</p>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">---</span><br><span class="line">title: 文章标题</span><br><span class="line">date: 2026-08-18 10:00:00</span><br><span class="line"><span class="section">tags:</span></span><br><span class="line"><span class="section">---</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="2-常用-Front-matter-字段（写在-之间）"><a href="#2-常用-Front-matter-字段（写在-之间）" class="headerlink" title="2. 常用 Front-matter 字段（写在 --- 之间）"></a>2. 常用 Front-matter 字段（写在 <code>---</code> 之间）</h3><table>
+<thead>
+<tr>
+<th>字段</th>
+<th>说明</th>
+<th>示例</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>title</code></td>
+<td>标题</td>
+<td><code>title: Hello World</code></td>
+</tr>
+<tr>
+<td><code>date</code></td>
+<td>发布日期</td>
+<td><code>date: 2026-08-18 10:00:00</code></td>
+</tr>
+<tr>
+<td><code>tags</code></td>
+<td>标签（列表）</td>
+<td><code>tags: [Hexo, 教程]</code></td>
+</tr>
+<tr>
+<td><code>categories</code></td>
+<td>分类</td>
+<td><code>categories: 技术</code></td>
+</tr>
+<tr>
+<td><code>sticky</code></td>
+<td>置顶（数字越大越靠前）</td>
+<td><code>sticky: 100</code></td>
+</tr>
+<tr>
+<td><code>toc</code></td>
+<td>本篇文章是否显示目录（默认开）</td>
+<td><code>toc: false</code></td>
+</tr>
+<tr>
+<td><code>donate</code></td>
+<td>本篇文章是否显示打赏按钮</td>
+<td><code>donate: false</code></td>
+</tr>
+<tr>
+<td><code>header_image</code></td>
+<td>自定义本文头图</td>
+<td><code>header_image: /intro/1250.jpg</code></td>
+</tr>
+<tr>
+<td><code>mathjax</code></td>
+<td>开启数学公式（需先启用主题 math 功能）</td>
+<td><code>mathjax: true</code></td>
+</tr>
+</tbody></table>
+<h3 id="3-Markdown-常用语法"><a href="#3-Markdown-常用语法" class="headerlink" title="3. Markdown 常用语法"></a>3. Markdown 常用语法</h3><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="section"># 一级标题</span></span><br><span class="line"><span class="section">## 二级标题</span></span><br><span class="line"></span><br><span class="line"><span class="strong">**加粗**</span>  <span class="emphasis">*斜体*</span>  ~~删除线~~</span><br><span class="line"></span><br><span class="line"><span class="bullet">-</span> 无序列表</span><br><span class="line"><span class="bullet">1.</span> 有序列表</span><br><span class="line"></span><br><span class="line">[<span class="string">链接文字</span>](<span class="link">https://example.com</span>)</span><br><span class="line">![<span class="string">图片说明</span>](<span class="link">/images/xxx.png</span>)</span><br><span class="line"></span><br><span class="line"><span class="quote">&gt; 引用块</span></span><br><span class="line"></span><br><span class="line"><span class="code">`行内代码`</span></span><br><span class="line"></span><br><span class="line">代码块：三个反引号 + 语言名包裹，例如：</span><br><span class="line"><span class="code">```javascript</span></span><br><span class="line"><span class="code">console.log(&#x27;hello&#x27;);</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">### 4. 插入图片</span><br><span class="line"></span><br><span class="line">- **方式一（推荐）**：图片放到 `source/images/` 目录，引用：</span><br><span class="line"></span><br><span class="line">  ```markdown</span><br><span class="line">  ![描述](/images/图片名.png)</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p><strong>方式二</strong>：直接引用图床外链：</p>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">![<span class="string">描述</span>](<span class="link">https://外部图床地址/xxx.png</span>)</span><br></pre></td></tr></table></figure></li>
+</ul>
+<blockquote>
+<p>仓库里图片走 GitHub 免费托管，上传大图会拖慢页面，建议先把图片压到 500KB 以内。</p>
+</blockquote>
+<h3 id="5-插入-PDF（在线阅读）⭐"><a href="#5-插入-PDF（在线阅读）⭐" class="headerlink" title="5. 插入 PDF（在线阅读）⭐"></a>5. 插入 PDF（在线阅读）⭐</h3><p>自定义标签，用法：</p>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&#123;% pdf /pdf/文件名.pdf %&#125;          # 默认宽 100%、高 600px</span><br><span class="line">&#123;% pdf /pdf/文件名.pdf 800px %&#125;    # 自定义高度</span><br></pre></td></tr></table></figure>
+
+<p>步骤：</p>
+<ol>
+<li>把 PDF 拷到 <code>source/pdf/</code> 目录</li>
+<li>在文章里写上述标签（路径以 <code>/pdf/</code> 开头）</li>
+<li>重新生成部署即可</li>
+</ol>
+<p>桌面浏览器会内嵌显示 PDF；移动端自动附带”在新窗口打开 PDF”链接兜底。</p>
+<hr>
+<h2 id="五、本地预览与发布"><a href="#五、本地预览与发布" class="headerlink" title="五、本地预览与发布"></a>五、本地预览与发布</h2><h3 id="本地预览（调试用）"><a href="#本地预览（调试用）" class="headerlink" title="本地预览（调试用）"></a>本地预览（调试用）</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">hexo server</span><br><span class="line"><span class="comment"># 或：npm run server</span></span><br></pre></td></tr></table></figure>
+
+<p>浏览器打开 <a href="http://localhost:4000，`Ctrl+C`">http://localhost:4000，`Ctrl+C`</a> 停止。</p>
+<h3 id="发布到线上（两步）"><a href="#发布到线上（两步）" class="headerlink" title="发布到线上（两步）"></a>发布到线上（两步）</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">hexo clean        <span class="comment"># 清缓存（改了配置后建议执行）</span></span><br><span class="line">hexo generate     <span class="comment"># 生成静态网站到 public/</span></span><br><span class="line">hexo deploy       <span class="comment"># 部署到 GitHub 的 main 分支</span></span><br></pre></td></tr></table></figure>
+
+<p>也可以合并：<code>hexo g &amp;&amp; hexo d</code>，或 <code>npm run build &amp;&amp; npm run deploy</code>。</p>
+<p>发布后 <strong>GitHub Pages 需要约 1~2 分钟</strong>重新构建，稍等刷新即可看到最新内容。</p>
+<h3 id="同步源码到-source-分支（重要，别忘）"><a href="#同步源码到-source-分支（重要，别忘）" class="headerlink" title="同步源码到 source 分支（重要，别忘）"></a>同步源码到 source 分支（重要，别忘）</h3><p>部署完网站后，把本次改动（文章、配置等）提交并推送源码，防止丢失：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git add .</span><br><span class="line">git commit -m <span class="string">&quot;描述本次改动&quot;</span></span><br><span class="line">git push origin <span class="built_in">source</span></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p><strong>每日工作流总结</strong>：写文章 → <code>hexo g &amp;&amp; hexo d</code>（更新网站）→ <code>git add . &amp;&amp; git commit &amp;&amp; git push origin source</code>（备份源码）。</p>
+</blockquote>
+<hr>
+<h2 id="六、配置详解"><a href="#六、配置详解" class="headerlink" title="六、配置详解"></a>六、配置详解</h2><h3 id="1-config-yml（Hexo-站点配置，节选）"><a href="#1-config-yml（Hexo-站点配置，节选）" class="headerlink" title="1. _config.yml（Hexo 站点配置，节选）"></a>1. <code>_config.yml</code>（Hexo 站点配置，节选）</h3><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 站点信息</span></span><br><span class="line"><span class="attr">title:</span> <span class="string">In1tial1z3&#x27;s</span> <span class="string">Wikipedia</span>   <span class="comment"># 浏览器标签页标题 / SEO</span></span><br><span class="line"><span class="attr">author:</span> <span class="string">In1tial1z3</span></span><br><span class="line"><span class="attr">language:</span> <span class="string">zh-CN</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 站点地址（必须与 GitHub Pages 域名一致）</span></span><br><span class="line"><span class="attr">url:</span> <span class="string">https://hbu2198784382.github.io/</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 主题</span></span><br><span class="line"><span class="attr">theme:</span> <span class="string">archer</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 部署配置（hexo d 时使用，一般不用改）</span></span><br><span class="line"><span class="attr">deploy:</span></span><br><span class="line">  <span class="attr">type:</span> <span class="string">git</span></span><br><span class="line">  <span class="attr">repo:</span> <span class="string">https://github.com/hbu2198784382/hbu2198784382.github.io.git</span></span><br><span class="line">  <span class="attr">branch:</span> <span class="string">main</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># PDF 侧边栏数据（archer 必需，勿删）</span></span><br><span class="line"><span class="attr">jsonContent:</span> &#123; <span class="string">...</span> &#125;</span><br><span class="line"></span><br><span class="line"><span class="comment"># RSS 订阅</span></span><br><span class="line"><span class="attr">feed:</span></span><br><span class="line">  <span class="attr">type:</span> <span class="string">atom</span></span><br><span class="line">  <span class="attr">path:</span> <span class="string">atom.xml</span></span><br><span class="line">  <span class="attr">limit:</span> <span class="number">20</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="2-config-archer-yml（主题配置，常用项）"><a href="#2-config-archer-yml（主题配置，常用项）" class="headerlink" title="2. _config.archer.yml（主题配置，常用项）"></a>2. <code>_config.archer.yml</code>（主题配置，常用项）</h3><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># ===== 个人资料 =====</span></span><br><span class="line"><span class="attr">avatar:</span> <span class="string">https://avatars.githubusercontent.com/hbu2198784382?size=200</span>   <span class="comment"># 头像（可换成其他图片链接）</span></span><br><span class="line"><span class="attr">author:</span> <span class="string">In1tial1z3</span></span><br><span class="line"><span class="attr">signature:</span> <span class="string">记录学习与生活的点滴</span></span><br><span class="line"><span class="attr">social:</span>                     <span class="comment"># 侧边栏社交图标，只保留需要显示的</span></span><br><span class="line">  <span class="attr">github:</span> <span class="string">https://github.com/hbu2198784382</span></span><br><span class="line">  <span class="attr">telegram:</span> <span class="string">https://t.me/你的用户名</span></span><br><span class="line">  <span class="attr">bilibili:</span> <span class="string">https://b23.tv/你的ID</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># ===== 站点 =====</span></span><br><span class="line"><span class="attr">SEO_title:</span> <span class="string">In1tial1z3&#x27;s</span> <span class="string">Wikipedia</span></span><br><span class="line"><span class="attr">main_title:</span> <span class="string">In1tial1z3&#x27;s</span> <span class="string">Wikipedia.</span></span><br><span class="line"><span class="attr">subtitle:</span> <span class="string">记录学习与生活的点滴</span></span><br><span class="line"><span class="attr">site_header_image:</span> <span class="string">/intro/1250.jpg</span>    <span class="comment"># 首页头图</span></span><br><span class="line"><span class="attr">post_header_image:</span> <span class="string">/intro/1250.jpg</span>    <span class="comment"># 文章页头图</span></span><br><span class="line"><span class="attr">_404_image:</span> <span class="string">/intro/1250.jpg</span>           <span class="comment"># 404 页头图</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># ===== 主题功能 =====</span></span><br><span class="line"><span class="attr">toc:</span> <span class="literal">true</span>                 <span class="comment"># 文章目录</span></span><br><span class="line"><span class="attr">reading_info:</span> <span class="literal">true</span>        <span class="comment"># 字数 / 阅读时间</span></span><br><span class="line"><span class="attr">truncate_length:</span> <span class="number">300</span>      <span class="comment"># 首页摘要长度</span></span><br><span class="line"><span class="attr">busuanzi:</span> <span class="literal">true</span>            <span class="comment"># 访问统计（PV）</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># ===== 其他（需要时开启）=====</span></span><br><span class="line"><span class="attr">about:</span></span><br><span class="line">  <span class="attr">enable:</span> <span class="literal">true</span></span><br><span class="line">  <span class="attr">image:</span> <span class="string">/intro/1250.jpg</span></span><br><span class="line"><span class="attr">mermaid:</span></span><br><span class="line">  <span class="attr">enable:</span> <span class="literal">false</span>           <span class="comment"># 流程图（需先 npm install hexo-filter-mermaid-diagrams）</span></span><br><span class="line"><span class="attr">math:</span></span><br><span class="line">  <span class="attr">mathjax:</span></span><br><span class="line">    <span class="attr">enable:</span> <span class="literal">false</span>         <span class="comment"># 数学公式</span></span><br><span class="line"><span class="attr">donate:</span></span><br><span class="line">  <span class="attr">enable:</span> <span class="literal">false</span>           <span class="comment"># 打赏</span></span><br><span class="line"><span class="attr">comment:</span> &#123; <span class="string">...</span> &#125;          <span class="comment"># 评论（见下）</span></span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="七、常见自定义场景"><a href="#七、常见自定义场景" class="headerlink" title="七、常见自定义场景"></a>七、常见自定义场景</h2><h3 id="1-更换头像-背景图"><a href="#1-更换头像-背景图" class="headerlink" title="1. 更换头像 &#x2F; 背景图"></a>1. 更换头像 &#x2F; 背景图</h3><ul>
+<li><strong>头像</strong>：<code>_config.archer.yml</code> 的 <code>avatar</code>，填任意图片 URL（本地图放 <code>themes/archer/source/</code> 后填 <code>/xxx.jpg</code>）。</li>
+<li><strong>背景图</strong>：改 <code>site_header_image</code> &#x2F; <code>post_header_image</code> &#x2F; <code>_404_image</code> &#x2F; <code>about.image</code> 为同一张即可统一。</li>
+</ul>
+<h3 id="2-新增-About-页面"><a href="#2-新增-About-页面" class="headerlink" title="2. 新增 About 页面"></a>2. 新增 About 页面</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo new page <span class="string">&quot;about&quot;</span></span><br></pre></td></tr></table></figure>
+
+<p>然后编辑 <code>source/about/index.md</code>，<strong>必须</strong>保留：</p>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">---</span><br><span class="line">title: 关于我</span><br><span class="line"><span class="section">layout: about</span></span><br><span class="line"><span class="section">---</span></span><br><span class="line"></span><br><span class="line">你的自我介绍正文</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>注意 <code>layout: about</code> 不可改动。若想让 About 页显示，确认 <code>_config.archer.yml</code> 里 <code>about.enable: true</code>。</p>
+</blockquote>
+<h3 id="3-新增-404-页面"><a href="#3-新增-404-页面" class="headerlink" title="3. 新增 404 页面"></a>3. 新增 404 页面</h3><p>创建 <code>source/404.md</code>：</p>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">---</span><br><span class="line">layout: 404</span><br><span class="line">title: &quot;[404]&quot;</span><br><span class="line"><span class="section">description: &quot;页面走丢了&quot;</span></span><br><span class="line"><span class="section">---</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="4-开启评论（可选）"><a href="#4-开启评论（可选）" class="headerlink" title="4. 开启评论（可选）"></a>4. 开启评论（可选）</h3><p>在 <code>_config.archer.yml</code> 的 <code>comment:</code> 区填入对应服务的参数即可，支持 Valine、Waline、Disqus、Gitalk、utteranc 等。以 <strong>Waline</strong> 为例：</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">comment:</span></span><br><span class="line">  <span class="attr">waline_serverURL:</span> <span class="string">https://你的部署地址.vercel.app</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="5-开启-RSS-图标"><a href="#5-开启-RSS-图标" class="headerlink" title="5. 开启 RSS 图标"></a>5. 开启 RSS 图标</h3><p>RSS 订阅源（<code>atom.xml</code>）一直在生成；想让侧边栏显示订阅图标，在 <code>social:</code> 里加一行：</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">social:</span></span><br><span class="line">  <span class="attr">rss:</span> <span class="string">/atom.xml</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="6-开启流程图-Mermaid（可选）"><a href="#6-开启流程图-Mermaid（可选）" class="headerlink" title="6. 开启流程图 Mermaid（可选）"></a>6. 开启流程图 Mermaid（可选）</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install hexo-filter-mermaid-diagrams --save</span><br></pre></td></tr></table></figure>
+
+<p><code>_config.archer.yml</code> 中：</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">mermaid:</span></span><br><span class="line">  <span class="attr">enable:</span> <span class="literal">true</span></span><br><span class="line">  <span class="attr">version:</span> <span class="number">8.11</span><span class="number">.0</span></span><br><span class="line">  <span class="attr">theme:</span> <span class="string">dark</span></span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="八、常见问题排查"><a href="#八、常见问题排查" class="headerlink" title="八、常见问题排查"></a>八、常见问题排查</h2><table>
+<thead>
+<tr>
+<th>现象</th>
+<th>解决办法</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>hexo: command not found</code></td>
+<td>全局安装 hexo-cli；或改用完整路径调用（见”二、新环境配置”第 2 步）</td>
+</tr>
+<tr>
+<td>改了配置但页面没变化</td>
+<td>先 <code>hexo clean</code> 再 <code>hexo generate</code>（清缓存）</td>
+</tr>
+<tr>
+<td><code>git push</code> 失败 &#x2F; 要求登录</td>
+<td>按提示用浏览器&#x2F;Git Credential Manager 登录一次；或改用 SSH（见第 6 步）</td>
+</tr>
+<tr>
+<td>线上更新很慢</td>
+<td>GitHub Pages 构建约需 1~2 分钟，属正常，稍等后强制刷新（Ctrl+F5）</td>
+</tr>
+<tr>
+<td>想恢复到某个版本</td>
+<td><code>git log</code> 查看历史，<code>git checkout &lt;提交号&gt; -- 文件名</code> 找回文件</td>
+</tr>
+<tr>
+<td>部署报错 “failed”</td>
+<td>确认本地能 <code>hexo generate</code> 成功（先在本地预览排查），再试 <code>hexo deploy</code></td>
+</tr>
+</tbody></table>
+<hr>
+<h2 id="九、命令速查表"><a href="#九、命令速查表" class="headerlink" title="九、命令速查表"></a>九、命令速查表</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 写作</span></span><br><span class="line">hexo new <span class="string">&quot;标题&quot;</span>              <span class="comment"># 新建文章</span></span><br><span class="line">hexo new page <span class="string">&quot;about&quot;</span>       <span class="comment"># 新建页面</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 本地</span></span><br><span class="line">hexo server                  <span class="comment"># 本地预览 http://localhost:4000</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 发布（改配置后先 clean）</span></span><br><span class="line">hexo clean                   <span class="comment"># 清缓存</span></span><br><span class="line">hexo generate                <span class="comment"># 生成网站</span></span><br><span class="line">hexo deploy                  <span class="comment"># 部署到 main</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 源码备份</span></span><br><span class="line">git add . &amp;&amp; git commit -m <span class="string">&quot;说明&quot;</span> &amp;&amp; git push origin <span class="built_in">source</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 完整发布流程（写完后一键）</span></span><br><span class="line">hexo g &amp;&amp; hexo d</span><br></pre></td></tr></table></figure>
+
+<hr>
+<p><em>手册最后更新：2026-08-18</em></p>
+
+    </article>
+    <!-- license -->
+        <div class="license-wrapper">
+            <p>原文作者：<a href="https://hbu2198784382.github.io">In1tial1z3</a>
+            <p>原文链接：<a href="https://hbu2198784382.github.io/2026/08/18/%E5%8D%9A%E5%AE%A2%E6%93%8D%E4%BD%9C%E6%89%8B%E5%86%8C/">https://hbu2198784382.github.io/2026/08/18/%E5%8D%9A%E5%AE%A2%E6%93%8D%E4%BD%9C%E6%89%8B%E5%86%8C/</a>
+            <p>发表日期：<a href="https://hbu2198784382.github.io/2026/08/18/%E5%8D%9A%E5%AE%A2%E6%93%8D%E4%BD%9C%E6%89%8B%E5%86%8C/">August 18th 2026, 11:06:02 am</a>
+            <p>更新日期：<a href="https://hbu2198784382.github.io/2026/08/18/%E5%8D%9A%E5%AE%A2%E6%93%8D%E4%BD%9C%E6%89%8B%E5%86%8C/">August 18th 2026, 11:06:39 am</a>
+            <p>版权声明：本文采用<a rel="license noopener" target="_blank" href="http://creativecommons.org/licenses/by-nc/4.0/">知识共享署名-非商业性使用 4.0 国际许可协议</a>进行许可</p>
+        </div>
+    <!-- paginator -->
+    <ul class="post-paginator">
+        <li class="next">
+        </li>
+        <li class="previous">
+                <div class="prevSlogan">Previous Post</div>
+                <a href="/2026/08/18/hello-world/" title="Hello World">
+                    <div class="prevTitle">Hello World</div>
+                </a>
+        </li>
+    </ul>
+    <!-- comment -->
+        <div class="post-comment">
+            <!-- 来必力 City 版安装代码 -->
+
+            
+            
+            
+            <!-- utteranc评论 -->
+
+            <!-- partial('_partial/comment/changyan') -->
+            <!--PC版-->
+
+            
+            
+            
+        </div>
+    <!-- timeliness note -->
+    <!-- idea from: https://hexo.fluid-dev.com/posts/hexo-injector/#%E6%96%87%E7%AB%A0%E6%97%B6%E6%95%88%E6%80%A7%E6%8F%90%E7%A4%BA -->
+    <!-- Mathjax -->
+</main>
+
+                <!-- profile -->
+            </div>
+            <footer class="footer footer-unloaded">
+    <!-- social  -->
+        <div class="social">
+                            <a href="https://github.com/hbu2198784382" class="iconfont-archer github" target="_blank" title="github"></a>
+                <a href="https://t.me/in1tial1z3" class="iconfont-archer telegram" target="_blank" title="telegram"></a>
+                <a href="https://b23.tv/uabqwCh" class="iconfont-archer bilibili" target="_blank" title="bilibili"></a>
+
+        </div>
+    <!-- powered by Hexo  -->
+    <div class="copyright">
+        <span id="hexo-power">Powered by <a href="https://hexo.io/" target="_blank">Hexo</a></span><span class="iconfont-archer power">&#xe635;</span><span id="theme-info">theme <a href="https://github.com/fi3ework/hexo-theme-archer" target="_blank">Archer</a></span>
+    </div>
+    <!-- website approve for Chinese user -->
+    <!-- 不蒜子  -->
+        <div class="busuanzi-container">
+                <span id="busuanzi_container_site_pv">PV: <span id="busuanzi_value_site_pv"></span> :)</span>
+        </div>
+</footer>
+
+        </div>
+        <!-- toc -->
+            <div class="toc-wrapper toc-wrapper-loding" style=    top:50vh;
+>
+                <div class="toc-catalog">
+                    <span class="iconfont-archer catalog-icon">&#xe613;</span><span>CATALOG</span>
+                </div>
+                <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%80%E3%80%81%E9%A1%B9%E7%9B%AE%E6%A6%82%E8%A7%88"><span class="toc-number">1.</span> <span class="toc-text">一、项目概览</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%8C%E3%80%81%E6%96%B0%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE%EF%BC%88%E6%8D%A2%E7%94%B5%E8%84%91-%E9%87%8D%E8%A3%85%E7%B3%BB%E7%BB%9F%EF%BC%89"><span class="toc-number">2.</span> <span class="toc-text">二、新环境配置（换电脑 &#x2F; 重装系统）</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E5%AE%89%E8%A3%85%E5%9F%BA%E7%A1%80%E8%BD%AF%E4%BB%B6"><span class="toc-number">2.1.</span> <span class="toc-text">1. 安装基础软件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E5%AE%89%E8%A3%85-hexo-%E5%91%BD%E4%BB%A4%E8%A1%8C%E5%B7%A5%E5%85%B7%EF%BC%88%E5%85%A8%E5%B1%80%EF%BC%89"><span class="toc-number">2.2.</span> <span class="toc-text">2. 安装 hexo 命令行工具（全局）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E5%85%8B%E9%9A%86%E6%BA%90%E7%A0%81%EF%BC%88%E6%B3%A8%E6%84%8F%E6%98%AF-source-%E5%88%86%E6%94%AF%EF%BC%89"><span class="toc-number">2.3.</span> <span class="toc-text">3. 克隆源码（注意是 source 分支）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-%E5%AE%89%E8%A3%85%E4%BE%9D%E8%B5%96"><span class="toc-number">2.4.</span> <span class="toc-text">4. 安装依赖</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-%E9%85%8D%E7%BD%AE-Git-%E8%BA%AB%E4%BB%BD%EF%BC%88%E6%8E%A8%E9%80%81%E6%8F%90%E4%BA%A4%E4%BF%A1%E6%81%AF%E7%94%A8%EF%BC%8C%E5%8F%AA%E9%9C%80%E7%AC%AC%E4%B8%80%E6%AC%A1%EF%BC%89"><span class="toc-number">2.5.</span> <span class="toc-text">5. 配置 Git 身份（推送提交信息用，只需第一次）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-%E9%85%8D%E7%BD%AE-GitHub-%E6%8E%A8%E9%80%81%E8%AE%A4%E8%AF%81"><span class="toc-number">2.6.</span> <span class="toc-text">6. 配置 GitHub 推送认证</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#7-%E9%AA%8C%E8%AF%81%E7%8E%AF%E5%A2%83"><span class="toc-number">2.7.</span> <span class="toc-text">7. 验证环境</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%89%E3%80%81%E7%9B%AE%E5%BD%95%E7%BB%93%E6%9E%84"><span class="toc-number">3.</span> <span class="toc-text">三、目录结构</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9B%9B%E3%80%81%E6%97%A5%E5%B8%B8%E5%86%99%E4%BD%9C"><span class="toc-number">4.</span> <span class="toc-text">四、日常写作</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E6%96%B0%E5%BB%BA%E6%96%87%E7%AB%A0"><span class="toc-number">4.1.</span> <span class="toc-text">1. 新建文章</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E5%B8%B8%E7%94%A8-Front-matter-%E5%AD%97%E6%AE%B5%EF%BC%88%E5%86%99%E5%9C%A8-%E4%B9%8B%E9%97%B4%EF%BC%89"><span class="toc-number">4.2.</span> <span class="toc-text">2. 常用 Front-matter 字段（写在 --- 之间）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-Markdown-%E5%B8%B8%E7%94%A8%E8%AF%AD%E6%B3%95"><span class="toc-number">4.3.</span> <span class="toc-text">3. Markdown 常用语法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-%E6%8F%92%E5%85%A5-PDF%EF%BC%88%E5%9C%A8%E7%BA%BF%E9%98%85%E8%AF%BB%EF%BC%89%E2%AD%90"><span class="toc-number">4.4.</span> <span class="toc-text">5. 插入 PDF（在线阅读）⭐</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%94%E3%80%81%E6%9C%AC%E5%9C%B0%E9%A2%84%E8%A7%88%E4%B8%8E%E5%8F%91%E5%B8%83"><span class="toc-number">5.</span> <span class="toc-text">五、本地预览与发布</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9C%AC%E5%9C%B0%E9%A2%84%E8%A7%88%EF%BC%88%E8%B0%83%E8%AF%95%E7%94%A8%EF%BC%89"><span class="toc-number">5.1.</span> <span class="toc-text">本地预览（调试用）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8F%91%E5%B8%83%E5%88%B0%E7%BA%BF%E4%B8%8A%EF%BC%88%E4%B8%A4%E6%AD%A5%EF%BC%89"><span class="toc-number">5.2.</span> <span class="toc-text">发布到线上（两步）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%90%8C%E6%AD%A5%E6%BA%90%E7%A0%81%E5%88%B0-source-%E5%88%86%E6%94%AF%EF%BC%88%E9%87%8D%E8%A6%81%EF%BC%8C%E5%88%AB%E5%BF%98%EF%BC%89"><span class="toc-number">5.3.</span> <span class="toc-text">同步源码到 source 分支（重要，别忘）</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%AD%E3%80%81%E9%85%8D%E7%BD%AE%E8%AF%A6%E8%A7%A3"><span class="toc-number">6.</span> <span class="toc-text">六、配置详解</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-config-yml%EF%BC%88Hexo-%E7%AB%99%E7%82%B9%E9%85%8D%E7%BD%AE%EF%BC%8C%E8%8A%82%E9%80%89%EF%BC%89"><span class="toc-number">6.1.</span> <span class="toc-text">1. _config.yml（Hexo 站点配置，节选）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-config-archer-yml%EF%BC%88%E4%B8%BB%E9%A2%98%E9%85%8D%E7%BD%AE%EF%BC%8C%E5%B8%B8%E7%94%A8%E9%A1%B9%EF%BC%89"><span class="toc-number">6.2.</span> <span class="toc-text">2. _config.archer.yml（主题配置，常用项）</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%83%E3%80%81%E5%B8%B8%E8%A7%81%E8%87%AA%E5%AE%9A%E4%B9%89%E5%9C%BA%E6%99%AF"><span class="toc-number">7.</span> <span class="toc-text">七、常见自定义场景</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E6%9B%B4%E6%8D%A2%E5%A4%B4%E5%83%8F-%E8%83%8C%E6%99%AF%E5%9B%BE"><span class="toc-number">7.1.</span> <span class="toc-text">1. 更换头像 &#x2F; 背景图</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E6%96%B0%E5%A2%9E-About-%E9%A1%B5%E9%9D%A2"><span class="toc-number">7.2.</span> <span class="toc-text">2. 新增 About 页面</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E6%96%B0%E5%A2%9E-404-%E9%A1%B5%E9%9D%A2"><span class="toc-number">7.3.</span> <span class="toc-text">3. 新增 404 页面</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-%E5%BC%80%E5%90%AF%E8%AF%84%E8%AE%BA%EF%BC%88%E5%8F%AF%E9%80%89%EF%BC%89"><span class="toc-number">7.4.</span> <span class="toc-text">4. 开启评论（可选）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-%E5%BC%80%E5%90%AF-RSS-%E5%9B%BE%E6%A0%87"><span class="toc-number">7.5.</span> <span class="toc-text">5. 开启 RSS 图标</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-%E5%BC%80%E5%90%AF%E6%B5%81%E7%A8%8B%E5%9B%BE-Mermaid%EF%BC%88%E5%8F%AF%E9%80%89%EF%BC%89"><span class="toc-number">7.6.</span> <span class="toc-text">6. 开启流程图 Mermaid（可选）</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%AB%E3%80%81%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98%E6%8E%92%E6%9F%A5"><span class="toc-number">8.</span> <span class="toc-text">八、常见问题排查</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B9%9D%E3%80%81%E5%91%BD%E4%BB%A4%E9%80%9F%E6%9F%A5%E8%A1%A8"><span class="toc-number">9.</span> <span class="toc-text">九、命令速查表</span></a></li></ol>
+            </div>
+        <!-- sidebar -->
+        <div class="sidebar sidebar-hide">
+    <ul class="sidebar-tabs sidebar-tabs-active-0">
+        <li class="sidebar-tab-archives"><span class="iconfont-archer">&#xe67d;</span><span class="tab-name">Archive</span></li>
+        <li class="sidebar-tab-tags"><span class="iconfont-archer">&#xe61b;</span><span class="tab-name">Tag</span></li>
+        <li class="sidebar-tab-categories"><span class="iconfont-archer">&#xe666;</span><span class="tab-name">Cate</span></li>
+    </ul>
+    <div class="sidebar-content sidebar-content-show-archive">
+        <div class="sidebar-panel-archives">
+    <!-- 在 ejs 中将 archive 按照时间排序 -->
+        
+        
+    <div class="total-and-search">
+        <div class="total-archive">
+        Total : 2
+        </div>
+        <!-- search  -->
+    </div>
+    <div class="post-archive">
+            <div class="archive-year"> 2026 </div>
+            <ul class="year-list">
+        <li class="archive-post-item">
+            <span class="archive-post-date">08/18</span>
+            <a class="archive-post-title" href="/2026/08/18/%E5%8D%9A%E5%AE%A2%E6%93%8D%E4%BD%9C%E6%89%8B%E5%86%8C/">博客操作手册</a>
+        </li>
+        <li class="archive-post-item">
+            <span class="archive-post-date">08/18</span>
+            <a class="archive-post-title" href="/2026/08/18/hello-world/">Hello World</a>
+        </li>
+            </ul>
+    </div>
+</div>
+
+        <div class="sidebar-panel-tags">
+    <div class="sidebar-tags-name">
+            <span class="sidebar-tag-name" data-tags="Hexo">
+                <span class="iconfont-archer">&#xe606;</span>
+                Hexo
+            </span>
+            <span class="sidebar-tag-name" data-tags="教程">
+                <span class="iconfont-archer">&#xe606;</span>
+                教程
+            </span>
+    </div>
+    <div class="iconfont-archer sidebar-tags-empty">&#xe678;</div>
+    <div class="tag-load-fail" style="display: none; color: #ccc; font-size: 0.6rem;">
+        缺失模块，请参考主题文档进行安装配置：https://github.com/fi3ework/hexo-theme-archer#%E5%AE%89%E8%A3%85%E4%B8%BB%E9%A2%98
+    </div> 
+    <div class="sidebar-tags-list"></div>
+</div>
+
+        <div class="sidebar-panel-categories">
+    <div class="sidebar-categories-name">
+        <span class="sidebar-category-name" data-categories="教程">
+            <span class="iconfont-archer">&#xe60a;</span>
+            教程
+        </span>
+    </div>
+    <div class="iconfont-archer sidebar-categories-empty">&#xe678;</div>
+    <div class="sidebar-categories-list"></div>
+</div>
+
+    </div>
+</div>
+
+        <!-- site-meta -->
+        <script>
+    var siteMetaRoot = "/"
+    if (siteMetaRoot === "undefined") {
+        siteMetaRoot = '/'
+    }
+    var siteMeta = {
+        url: "https://hbu2198784382.github.io",
+        root: siteMetaRoot,
+        author: "In1tial1z3"
+    }
+</script>
+
+        <!-- import experimental options here -->
+        <!-- Custom Font -->
+
+        <!-- main func -->
+        <script src="/scripts/main.js"></script>
+        <!-- fancybox -->
+        <script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.36/dist/fancybox/fancybox.umd.js" onload="window.Fancybox.bind('[data-fancybox]')" defer></script>
+        <!-- algolia -->
+        <!-- busuanzi -->
+            <script src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" async></script>
+        <!-- async load share.js -->
+            <script src="/scripts/share.js" async></script>
+        <!-- mermaid -->
+    </body>
+</html>
