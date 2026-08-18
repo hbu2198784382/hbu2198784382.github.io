@@ -7,28 +7,9 @@ author: In1tial1z3
 signature: 记录学习与生活的点滴
 # SNS (you can custom the order)
 social:
-  email:
-  github: //github.com/hbu2198784382
-  # wechat should be a path of qr-code image path
-  wechat: /assets/example_qr.png
-  # qq should be a path of qr-code image path
-  qq: 
-  telegram: 
-  weibo: 
-  zhihu: 
-  douban: 
-  facebook: 
-  twitter: 
-  instagram: 
-  stack-overflow: 
-  segmentFault: 
-  juejin: 
-  v2ex: 
-  bilibili:
-  linkedin:
-  steam:
-  others:
-  rss: /atom.xml
+  github: https://github.com/hbu2198784382
+  telegram: https://t.me/in1tial1z3
+  bilibili: https://b23.tv/uabqwCh
 # friends
 friends:
   # friendA: //www.baidu.com
