@@ -1,0 +1,434 @@
+# In1tial1z3's Wikipedia 博客
+
+> 本仓库是博客的**源码仓库**。文档介绍如何在一台新电脑上重新搭建本博客环境，以及日常写文章、发布、自定义的完整方法。
+>
+> 适用版本：Hexo 8.1.2 · archer 主题 · GitHub Pages
+
+---
+
+## 目录
+
+- [一、项目概览](#一项目概览)
+- [二、新环境配置](#二新环境配置换电脑--重装系统)
+- [三、目录结构](#三目录结构)
+- [四、日常写作](#四日常写作)
+- [五、本地预览与发布](#五本地预览与发布)
+- [六、配置详解](#六配置详解)
+- [七、常见自定义场景](#七常见自定义场景)
+- [八、常见问题排查](#八常见问题排查)
+- [九、命令速查表](#九命令速查表)
+
+---
+
+## 一、项目概览
+
+| 项目 | 内容 |
+|------|------|
+| 博客地址 | https://hbu2198784382.github.io/ |
+| 代码仓库 | https://github.com/hbu2198784382/hbu2198784382.github.io.git |
+| 技术栈 | Hexo 8（Node.js）+ archer 主题 + GitHub Pages |
+| 默认分支 `main` | **部署后的网站**（自动生成，不要手动修改） |
+| 分支 `source` | **博客源码**（配置文件、主题、文章，日常改动都在这里） |
+
+> ⚠️ **重要**：`main` 分支是 `hexo d` 自动生成的成品，**不要**直接在 `main` 上改代码。所有修改都改在本地，提交到 `source` 分支；网站内容用 `hexo g && hexo d` 发布。
+
+---
+
+## 二、新环境配置（换电脑 / 重装系统）
+
+### 1. 安装基础软件
+
+| 软件 | 说明 | 下载 |
+|------|------|------|
+| **Node.js** | 运行 Hexo 必需，建议 LTS 版（本机为 v24） | https://nodejs.org |
+| **Git** | 版本管理 | https://git-scm.com |
+
+安装时全部保持默认即可。安装后打开终端（Windows 建议用 **PowerShell** 或 **cmd**，Git Bash 下 hexo 命令可能不在 PATH）验证：
+
+```bash
+node -v    # 应显示 v18 或更高，如 v24.16.0
+npm -v     # 应显示 11.x 或更高
+git --version
+```
+
+### 2. 安装 hexo 命令行工具（全局）
+
+```bash
+npm install -g hexo-cli
+```
+
+> 若在 Git Bash 里提示 `hexo: command not found`，用完整路径调用：
+> `"C:/Users/<你的用户名>/AppData/Roaming/npm/hexo.cmd"`，或把该目录加进系统 PATH。
+
+### 3. 克隆源码（注意是 `source` 分支）
+
+```bash
+git clone -b source https://github.com/hbu2198784382/hbu2198784382.github.io.git
+cd hbu2198784382.github.io
+```
+
+### 4. 安装依赖
+
+```bash
+npm install
+```
+
+### 5. 配置 Git 身份（推送提交信息用，只需第一次）
+
+```bash
+git config --global user.name  "In1tial1z3"
+git config --global user.email "你的邮箱"
+```
+
+### 6. 配置 GitHub 推送认证
+
+Windows 上 Git 自带 **Git Credential Manager**，第一次 `git push` 时会弹出浏览器/GUI 窗口登录 GitHub，登录一次后自动记住。如果推送失败，也可以改用 SSH 方式：
+
+```bash
+git remote set-url origin git@github.com:hbu2198784382/hbu2198784382.github.io.git
+```
+
+### 7. 验证环境
+
+```bash
+hexo -v            # 显示 hexo 8.1.2 即正常
+hexo server        # 启动本地预览 → 浏览器打开 http://localhost:4000
+```
+
+看到博客首页就说明新环境配置完成。
+
+---
+
+## 三、目录结构
+
+```
+blog/                         # 博客根目录
+├── _config.yml               # Hexo 站点配置（标题、URL、部署等）
+├── _config.archer.yml        # archer 主题配置（头像、社交、背景图等）
+├── package.json              # Node 依赖清单
+├── source/                   # 内容源目录
+│   ├── _posts/               # ⭐ 所有文章都放这里（Markdown）
+│   ├── pdf/                  # PDF 文件目录（在线阅读用）
+│   ├── about/                # About 页面（创建后出现）
+│   └── 404.md                # 404 页面（创建后出现）
+├── scaffolds/                # 新建文章的模板
+├── themes/archer/            # 主题源码
+│   └── source/               # 主题静态资源（头像、背景图等）
+└── scripts/pdf.js            # 自定义 PDF 标签插件
+```
+
+---
+
+## 四、日常写作
+
+### 1. 新建文章
+
+```bash
+hexo new "文章标题"
+```
+
+会在 `source/_posts/文章标题.md` 生成模板，内容如下：
+
+```markdown
+---
+title: 文章标题
+date: 2026-08-18 10:00:00
+tags:
+---
+```
+
+### 2. 常用 Front-matter 字段（写在 `---` 之间）
+
+| 字段 | 说明 | 示例 |
+|------|------|------|
+| `title` | 标题 | `title: Hello World` |
+| `date` | 发布日期 | `date: 2026-08-18 10:00:00` |
+| `tags` | 标签（列表） | `tags: [Hexo, 教程]` |
+| `categories` | 分类 | `categories: 技术` |
+| `sticky` | 置顶（数字越大越靠前） | `sticky: 100` |
+| `toc` | 本篇文章是否显示目录（默认开） | `toc: false` |
+| `donate` | 本篇文章是否显示打赏按钮 | `donate: false` |
+| `header_image` | 自定义本文头图 | `header_image: /intro/1250.jpg` |
+| `mathjax` | 开启数学公式（需先启用主题 math 功能） | `mathjax: true` |
+
+### 3. Markdown 常用语法
+
+```markdown
+# 一级标题
+## 二级标题
+
+**加粗**  *斜体*  ~~删除线~~
+
+- 无序列表
+1. 有序列表
+
+[链接文字](https://example.com)
+![图片说明](/images/xxx.png)
+
+> 引用块
+
+`行内代码`
+
+代码块：三个反引号 + 语言名包裹，例如：
+```javascript
+console.log('hello');
+```
+```
+
+### 4. 插入图片
+
+- **方式一（推荐）**：图片放到 `source/images/` 目录，引用：
+
+  ```markdown
+  ![描述](/images/图片名.png)
+  ```
+
+- **方式二**：直接引用图床外链：
+
+  ```markdown
+  ![描述](https://外部图床地址/xxx.png)
+  ```
+
+> 仓库里图片走 GitHub 免费托管，上传大图会拖慢页面，建议先把图片压到 500KB 以内。
+
+### 5. 插入 PDF（在线阅读）⭐
+
+自定义标签，用法：
+
+```markdown
+{% pdf /pdf/文件名.pdf %}          # 默认宽 100%、高 600px
+{% pdf /pdf/文件名.pdf 800px %}    # 自定义高度
+```
+
+步骤：
+
+1. 把 PDF 拷到 `source/pdf/` 目录
+2. 在文章里写上述标签（路径以 `/pdf/` 开头）
+3. 重新生成部署即可
+
+桌面浏览器会内嵌显示 PDF；移动端自动附带"在新窗口打开 PDF"链接兜底。
+
+---
+
+## 五、本地预览与发布
+
+### 本地预览（调试用）
+
+```bash
+hexo server
+# 或：npm run server
+```
+
+浏览器打开 http://localhost:4000，`Ctrl+C` 停止。
+
+### 发布到线上（两步）
+
+```bash
+hexo clean        # 清缓存（改了配置后建议执行）
+hexo generate     # 生成静态网站到 public/
+hexo deploy       # 部署到 GitHub 的 main 分支
+```
+
+也可以合并：`hexo g && hexo d`，或 `npm run build && npm run deploy`。
+
+发布后 **GitHub Pages 需要约 1~2 分钟**重新构建，稍等刷新即可看到最新内容。
+
+### 同步源码到 source 分支（重要，别忘）
+
+部署完网站后，把本次改动（文章、配置等）提交并推送源码，防止丢失：
+
+```bash
+git add .
+git commit -m "描述本次改动"
+git push origin source
+```
+
+> **每日工作流总结**：写文章 → `hexo g && hexo d`（更新网站）→ `git add . && git commit && git push origin source`（备份源码）。
+
+---
+
+## 六、配置详解
+
+### 1. `_config.yml`（Hexo 站点配置，节选）
+
+```yaml
+# 站点信息
+title: In1tial1z3's Wikipedia   # 浏览器标签页标题 / SEO
+author: In1tial1z3
+language: zh-CN
+
+# 站点地址（必须与 GitHub Pages 域名一致）
+url: https://hbu2198784382.github.io/
+
+# 主题
+theme: archer
+
+# 部署配置（hexo d 时使用，一般不用改）
+deploy:
+  type: git
+  repo: https://github.com/hbu2198784382/hbu2198784382.github.io.git
+  branch: main
+
+# PDF 侧边栏数据（archer 必需，勿删）
+jsonContent: { ... }
+
+# RSS 订阅
+feed:
+  type: atom
+  path: atom.xml
+  limit: 20
+```
+
+### 2. `_config.archer.yml`（主题配置，常用项）
+
+```yaml
+# ===== 个人资料 =====
+avatar: https://avatars.githubusercontent.com/hbu2198784382?size=200   # 头像（可换成其他图片链接）
+author: In1tial1z3
+signature: 记录学习与生活的点滴
+social:                     # 侧边栏社交图标，只保留需要显示的
+  github: https://github.com/hbu2198784382
+  telegram: https://t.me/你的用户名
+  bilibili: https://b23.tv/你的ID
+
+# ===== 站点 =====
+SEO_title: In1tial1z3's Wikipedia
+main_title: In1tial1z3's Wikipedia.
+subtitle: 记录学习与生活的点滴
+site_header_image: /intro/1250.jpg    # 首页头图
+post_header_image: /intro/1250.jpg    # 文章页头图
+_404_image: /intro/1250.jpg           # 404 页头图
+
+# ===== 主题功能 =====
+toc: true                 # 文章目录
+reading_info: true        # 字数 / 阅读时间
+truncate_length: 300      # 首页摘要长度
+busuanzi: true            # 访问统计（PV）
+
+# ===== 其他（需要时开启）=====
+about:
+  enable: true
+  image: /intro/1250.jpg
+mermaid:
+  enable: false           # 流程图（需先 npm install hexo-filter-mermaid-diagrams）
+math:
+  mathjax:
+    enable: false         # 数学公式
+donate:
+  enable: false           # 打赏
+comment: { ... }          # 评论（见下）
+```
+
+---
+
+## 七、常见自定义场景
+
+### 1. 更换头像 / 背景图
+
+- **头像**：`_config.archer.yml` 的 `avatar`，填任意图片 URL（本地图放 `themes/archer/source/` 后填 `/xxx.jpg`）。
+- **背景图**：改 `site_header_image` / `post_header_image` / `_404_image` / `about.image` 为同一张即可统一。
+
+### 2. 新增 About 页面
+
+```bash
+hexo new page "about"
+```
+
+然后编辑 `source/about/index.md`，**必须**保留：
+
+```markdown
+---
+title: 关于我
+layout: about
+---
+
+你的自我介绍正文
+```
+
+> 注意 `layout: about` 不可改动。若想让 About 页显示，确认 `_config.archer.yml` 里 `about.enable: true`。
+
+### 3. 新增 404 页面
+
+创建 `source/404.md`：
+
+```markdown
+---
+layout: 404
+title: "[404]"
+description: "页面走丢了"
+---
+```
+
+### 4. 开启评论（可选）
+
+在 `_config.archer.yml` 的 `comment:` 区填入对应服务的参数即可，支持 Valine、Waline、Disqus、Gitalk、utteranc 等。以 **Waline** 为例：
+
+```yaml
+comment:
+  waline_serverURL: https://你的部署地址.vercel.app
+```
+
+### 5. 开启 RSS 图标
+
+RSS 订阅源（`atom.xml`）一直在生成；想让侧边栏显示订阅图标，在 `social:` 里加一行：
+
+```yaml
+social:
+  rss: /atom.xml
+```
+
+### 6. 开启流程图 Mermaid（可选）
+
+```bash
+npm install hexo-filter-mermaid-diagrams --save
+```
+
+`_config.archer.yml` 中：
+
+```yaml
+mermaid:
+  enable: true
+  version: 8.11.0
+  theme: dark
+```
+
+---
+
+## 八、常见问题排查
+
+| 现象 | 解决办法 |
+|------|----------|
+| `hexo: command not found` | 全局安装 hexo-cli；或改用完整路径调用（见"二、新环境配置"第 2 步） |
+| 改了配置但页面没变化 | 先 `hexo clean` 再 `hexo generate`（清缓存） |
+| `git push` 失败 / 要求登录 | 按提示用浏览器/Git Credential Manager 登录一次；或改用 SSH（见第 6 步） |
+| 线上更新很慢 | GitHub Pages 构建约需 1~2 分钟，属正常，稍等后强制刷新（Ctrl+F5） |
+| 想恢复到某个版本 | `git log` 查看历史，`git checkout <提交号> -- 文件名` 找回文件 |
+| 部署报错 "failed" | 确认本地能 `hexo generate` 成功（先在本地预览排查），再试 `hexo deploy` |
+
+---
+
+## 九、命令速查表
+
+```bash
+# 写作
+hexo new "标题"              # 新建文章
+hexo new page "about"       # 新建页面
+
+# 本地
+hexo server                  # 本地预览 http://localhost:4000
+
+# 发布（改配置后先 clean）
+hexo clean                   # 清缓存
+hexo generate                # 生成网站
+hexo deploy                  # 部署到 main
+
+# 源码备份
+git add . && git commit -m "说明" && git push origin source
+
+# 完整发布流程（写完后一键）
+hexo g && hexo d
+```
+
+---
+
+*手册最后更新：2026-08-18*
