@@ -8,4 +8,42 @@
         crossorigin='anonymous'
         async>
     </script>
+    <%_ if (theme.comment.utteranc_theme_sync) { _%>
+    <script>
+        (function () {
+            var darkId = 'stylesheet-theme-dark'
+            var SYNC_ORIGIN = 'https://utteranc.es'
+            var currentTheme = function () {
+                return document.getElementById(darkId) ? 'github-dark' : 'github-light'
+            }
+            var syncTheme = function () {
+                var frame = document.querySelector('iframe.utterances-frame')
+                if (!frame) return
+                frame.contentWindow.postMessage(
+                    { type: 'set-theme', theme: currentTheme() },
+                    SYNC_ORIGIN
+                )
+            }
+            // 主题切换：archer 通过增删 dark.css 的 <link> 实现，监听 head 变化即可
+            if (window.MutationObserver) {
+                new MutationObserver(syncTheme).observe(document.head, {
+                    childList: true,
+                    subtree: true
+                })
+            }
+            // iframe 加载完成后同步（加载前的 postMessage 会丢失）
+            document.addEventListener('DOMContentLoaded', function () {
+                var frame = document.querySelector('iframe.utterances-frame')
+                if (frame) frame.addEventListener('load', syncTheme)
+            })
+            // 兜底：初始化 + 前 10 秒每 1 秒补发一次
+            syncTheme()
+            var tries = 0
+            var timer = setInterval(function () {
+                syncTheme()
+                if (++tries >= 10) clearInterval(timer)
+            }, 1000)
+        })()
+    </script>
+    <%_ } _%>
 <%_ } _%>

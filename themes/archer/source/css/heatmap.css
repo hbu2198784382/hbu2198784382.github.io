@@ -1,0 +1,124 @@
+/* ===== 打卡热力图 (light) ===== */
+.heatmap {
+  background-color: #fdfdfd;
+  border-radius: 0.5rem;
+  padding: 1rem 1rem 0.75rem;
+  margin-bottom: 1rem;
+  position: relative;
+  z-index: 3;
+  transition: background-color 0.5s ease-out;
+}
+
+.heatmap-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: 0.75rem;
+}
+
+.heatmap-title {
+  font-size: 1.2rem;
+  font-weight: 500;
+  color: #333;
+}
+
+.heatmap-month {
+  font-size: 0.9rem;
+  color: #aaa;
+}
+
+.heatmap-weekdays,
+.heatmap-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 3px;
+  max-width: 360px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.heatmap-weekdays {
+  margin-bottom: 3px;
+}
+
+.heatmap-weekdays span {
+  text-align: center;
+  font-size: 0.7rem;
+  line-height: 14px;
+  height: 14px;
+  color: #aaa;
+}
+
+.heatmap-cell {
+  position: relative;
+  aspect-ratio: 1;
+  border-radius: 3px;
+  background-color: #ebedf0;
+  cursor: default;
+}
+
+.heatmap-cell.heatmap-blank {
+  background-color: transparent;
+  cursor: default;
+}
+
+.heatmap-cell.heatmap-today {
+  outline: 1.5px solid #f75357;
+  outline-offset: 1px;
+}
+
+.heatmap-level-0 { background-color: #ebedf0; }
+.heatmap-level-1 { background-color: #c6e48b; }
+.heatmap-level-2 { background-color: #7bc96f; }
+.heatmap-level-3 { background-color: #239a3b; }
+.heatmap-level-4 { background-color: #196127; }
+
+.heatmap-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 0.75rem;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.heatmap-summary {
+  font-size: 0.8rem;
+  color: #777;
+}
+
+.heatmap-legend {
+  display: flex;
+  align-items: center;
+  gap: 3px;
+  font-size: 0.7rem;
+  color: #aaa;
+}
+
+.heatmap-legend .heatmap-cell {
+  width: 11px;
+  height: 11px;
+}
+
+.heatmap-error {
+  margin: 0;
+  padding: 0.5rem 0;
+  font-size: 0.85rem;
+  color: #aaa;
+  text-align: center;
+}
+
+.heatmap-tooltip {
+  position: fixed;
+  z-index: 9999;
+  pointer-events: none;
+  display: none;
+  max-width: 240px;
+  background: rgba(0, 0, 0, 0.85);
+  color: #fff;
+  font-size: 0.75rem;
+  line-height: 1.4;
+  padding: 4px 8px;
+  border-radius: 4px;
+  white-space: nowrap;
+}

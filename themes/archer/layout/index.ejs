@@ -1,4 +1,5 @@
 <main class="main index-page">
+    <%- partial('_partial/heatmap') %>
     <%_ page.posts.each(function (_post) { _%>
         <%_ const truncateLength = typeof theme.truncate_length === 'number' ? theme.truncate_length : 300 _%>
         <%_ let _content = undefined _%>

@@ -34,6 +34,9 @@
     <link id="stylesheet-fancybox" rel="preload" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.36/dist/fancybox/fancybox.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
     <link id="stylesheet-base" rel="preload" href="<%- url_for("css/style.css") %>" as="style" onload="this.onload=null;this.rel='stylesheet'">
     <link id="stylesheet-mobile" rel="preload" href="<%- url_for("css/mobile.css") %>" as="style" onload="this.onload=null;this.rel='stylesheet';this.media='screen and (max-width: 960px)'">
+    <%_ if (is_home()) { _%>
+    <link id="stylesheet-heatmap" rel="stylesheet" href="<%- url_for("css/heatmap.css") %>">
+    <%_ } _%>
     <link id="stylesheet-theme-dark" rel="preload" href="<%- url_for("css/dark.css") %>" as="style" onload="this.onload=null;this.rel='stylesheet'">
     <link rel="preload" href="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js" as="script">
     <link rel="preload" href="<%- url_for('scripts/main.js') %>" as="script">
